@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import operator
+import math
 
 
 operators = {
@@ -11,6 +12,24 @@ operators = {
     '^': operator.pow,
 }
 
+constants = {
+    'pi': math.pi,
+    'e': math.e,
+    'tau': math.tau,
+    'infinity': math.inf,
+}
+
+unary = {
+    'cos': math.cos,
+    'sin': math.sin,
+    'tan': math.tan,
+    'acos': math.acos,
+    'asin': math.asin,
+    'atan': math.atan,
+}
+
+
+
 def calculate(myarg):
     stack = list()
     for token in myarg.split():
@@ -18,6 +37,17 @@ def calculate(myarg):
             token = int(token)
             stack.append(token)
         except ValueError:
+            if token in constants.keys():
+                value = constants[token]
+                stack.append(value)
+                continue
+            elif token in unary.keys():
+                function = unary[token]
+                arg1 = stack.pop()
+                result = function(arg1)
+                stack.append(result)
+                break
+
             function = operators[token]
             arg2 = stack.pop()
             arg1 = stack.pop()
