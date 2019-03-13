@@ -21,7 +21,7 @@ def calculate(myarg):
             token = int(token)
             stack.append(token)
         except ValueError:
-            if token == "ans":
+            if token == ":ans":
                 stack.append(prevValue)
                 continue
             function = operators[token]
