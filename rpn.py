@@ -23,7 +23,7 @@ def calculate(myarg):
             stack.append(token)
         except ValueError:
             if token[-1:] == "%":
-                percentValue = token[:-1]
+                percentValue = int(token[:-1])
                 percentValue = stack[0] * (percentValue / 100)
                 print(percentValue)
                 stack.append(int(percentValue))
